@@ -1,5 +1,8 @@
 // Jim Lee
-
+// 3 hours 
+// 1. Bonus ship 5pts
+// 2. Timer Display 3pts
+//
 let config = {
     type: Phaser.AUTO,
     width: 640,
