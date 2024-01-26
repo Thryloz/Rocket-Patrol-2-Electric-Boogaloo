@@ -1,5 +1,5 @@
 // Jim Lee
-// 3 hours 
+// 4 hours 
 // 1. Bonus ship 5pts
 // 2. Timer Display 3pts
 //

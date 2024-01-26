@@ -25,7 +25,7 @@ class Play extends Phaser.Scene{
         keyLEFT = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.LEFT);
         keyRIGHT = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.RIGHT);
 
-        //ships
+        //ships (this scene, spawnx, spawny, sprite, frame (only 1 frame so 0), points)
         this.ship01 = new Spaceship(this, game.config.width + borderUISize*6, borderUISize*4, 'spaceship', 0, 30).setOrigin(0, 0);
         this.ship02 = new Spaceship(this, game.config.width + borderUISize*3, borderUISize*5 + borderPadding*2, 'spaceship', 0, 20).setOrigin(0,0);
         this.ship03 = new Spaceship(this, game.config.width, borderUISize*6 + borderPadding*4, 'spaceship', 0, 10).setOrigin(0,0);
@@ -78,7 +78,7 @@ class Play extends Phaser.Scene{
         if(this.gameOver && Phaser.Input.Keyboard.JustDown(keyRESET)) {
             this.scene.restart();
         }
-
+        
         this.starfield.tilePositionX -= 4;
         if(!this.gameOver){
             this.p1Rocket.update();
@@ -87,12 +87,13 @@ class Play extends Phaser.Scene{
             this.ship03.update();
             this.bonusShip.update();
             // timer update
-            this.timeInSeconds -= .006;
-            this.timerRight.text = this.timeInSeconds;
+            // found getElapsed in the phaser timer event docs
+            // there's also getElapsedSeconds but it didn't work like expected so I'm not messing with it
+            this.timerRight.text = Math.floor((game.settings.gameTimer - this.clock.getElapsed())/1000);
         }
 
         if(this.gameOver){
-            this.timerRight.text = 0.000;
+            this.timerRight.text = 0;
         }
         
 
