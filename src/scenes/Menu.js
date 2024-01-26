@@ -5,10 +5,11 @@ class Menu extends Phaser.Scene{
 
     preload(){
         // (name of graphic for later reference, path to file)
-        this.load.image('rocket', './assets/rocket.png');
+        this.load.image('rocket', './assets/rocket.png')
         this.load.image('spaceship', './assets/spaceship.png')
         this.load.image('starfield', './assets/starfield.png') 
         this.load.image('bonusSpaceship', './assets/bonusSpaceship.png')
+        this.load.image('particle', './assets/emitter.png')
         
         //audio
         this.load.audio('sfx-select', './assets/sfx-select.wav')

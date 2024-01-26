@@ -76,6 +76,16 @@ class Play extends Phaser.Scene{
             this.add.text(game.config.width/2, game.config.height/2 + 64, 'Press (R) to Restart', scoreConfig).setOrigin(0.5)
             this.gameOver = true;
         }, null, this)
+
+        //particle emitter https://github.com/phaserjs/examples/blob/master/public/src/game%20objects/particle%20emitter/emit%20at%20pointer.js
+        this.particleEmitter = this.add.particles(0, 0, 'particle', {
+            frame: 0,
+            lifespan: 750,
+            speed: { min: 350, max: 500 },
+            scale: { start: 0.4, end: 0 },
+            gravityY: 100,
+            emitting: false
+        })
     }
 
     update() {
@@ -162,5 +172,9 @@ class Play extends Phaser.Scene{
         this.sound.play('sfx-explosion');
         this.p1Score += ship.points;
         this.scoreLeft.text = this.p1Score;
+        // (x, y, count)
+        this.particleEmitter.emitParticleAt(ship.x, ship.y, 50);
+        
+        
     }
 }
