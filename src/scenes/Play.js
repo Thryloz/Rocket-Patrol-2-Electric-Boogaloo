@@ -18,12 +18,16 @@ class Play extends Phaser.Scene{
         this.add.rectangle(game.config.width - borderUISize, 0, borderUISize, game.config.height, 0xFFFFFF).setOrigin(0, 0);   
     
         this.p1Rocket = new Rocket(this, game.config.width/2, game.config.height - borderUISize - borderPadding, 'rocket').setOrigin(0.5, 0);
+
+        
     
         //player input
         keyFIRE = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.F);
         keyRESET = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.R);
         keyLEFT = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.LEFT);
         keyRIGHT = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.RIGHT);
+
+        
 
         //ships (this scene, spawnx, spawny, sprite, frame (only 1 frame so 0), points)
         this.ship01 = new Spaceship(this, game.config.width + borderUISize*6, borderUISize*4, 'spaceship', 0, 30).setOrigin(0, 0);
@@ -90,6 +94,22 @@ class Play extends Phaser.Scene{
             // found getElapsed in the phaser timer event docs
             // there's also getElapsedSeconds but it didn't work like expected so I'm not messing with it
             this.timerRight.text = Math.floor((game.settings.gameTimer - this.clock.getElapsed())/1000);
+
+            // left click for player fire
+            // from the phaser examples site https://phaser.io/examples/v3/view/input/mouse/mouse-down
+            // https://github.com/phaserjs/examples/blob/master/public/src/input/mouse/mouse%20down.js 
+            this.input.on("pointerdown", (pointer) => {
+                if (pointer.isDown && this.p1Rocket.isFiring == false){
+                    this.p1Rocket.isFiring = true;
+                    this.p1Rocket.sfxShot.play();
+                }
+            })
+            // controlling rocket with mouse
+            this.input.on("pointermove", (pointer) =>{
+                if (pointer.x >= borderUISize + this.p1Rocket.width && pointer.x <= game.config.width - borderUISize - this.p1Rocket.width && this.p1Rocket.isFiring == false){
+                    this.p1Rocket.x = pointer.x;
+                }
+            })
         }
 
         if(this.gameOver){
