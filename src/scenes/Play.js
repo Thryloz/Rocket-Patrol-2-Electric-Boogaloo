@@ -29,11 +29,11 @@ class Play extends Phaser.Scene{
 
         
 
-        //ships (this scene, spawnx, spawny, sprite, frame (only 1 frame so 0), points)
+        //ships (this scene, spawn_x, spawn_y, sprite, frame (only 1 frame so 0), points)
         this.ship01 = new Spaceship(this, game.config.width + borderUISize*6, borderUISize*4, 'spaceship', 0, 30).setOrigin(0, 0);
         this.ship02 = new Spaceship(this, game.config.width + borderUISize*3, borderUISize*5 + borderPadding*2, 'spaceship', 0, 20).setOrigin(0,0);
         this.ship03 = new Spaceship(this, game.config.width, borderUISize*6 + borderPadding*4, 'spaceship', 0, 10).setOrigin(0,0);
-        this.bonusShip = new bonusSpaceship(this, game.config.width, borderUISize*6 + borderUISize*5, 'bonusSpaceship', 0, 40).setOrigin(0,0)
+        this.bonusShip = new bonusSpaceship(this, game.config.width, borderUISize*6 + borderUISize*4, 'bonusSpaceship', 0, 40).setOrigin(0,0)
     
 
         //score
@@ -86,6 +86,8 @@ class Play extends Phaser.Scene{
             gravityY: 100,
             emitting: false
         })
+
+        this.speedup = false;
     }
 
     update() {
@@ -148,6 +150,16 @@ class Play extends Phaser.Scene{
         if (this.gameOver && Phaser.Input.Keyboard.JustDown(keyLEFT)){
             this.scene.start('menuScene');
         }
+
+        if (this.clock.getElapsed() > 30000 && !this.speedup) {
+            //console.log("speed up");
+            this.speedup = true;
+            this.ship01.moveSpeed += 3;
+            this.ship02.moveSpeed += 3;
+            this.ship03.moveSpeed += 3;
+            this.bonusShip.moveSpeed += 3;
+        }
+        
     }
 
     // collisions management
@@ -174,7 +186,5 @@ class Play extends Phaser.Scene{
         this.scoreLeft.text = this.p1Score;
         // (x, y, count)
         this.particleEmitter.emitParticleAt(ship.x, ship.y, 50);
-        
-        
     }
 }
