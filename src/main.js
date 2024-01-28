@@ -5,6 +5,10 @@
 // 3. 5pts Mouse control    2 hours, of reading phaser docs
 // 4. 5pts Particle Emitter 30 mins, much faster now that I know where to look
 // 5. 1pt  Speed up         10 mins, it's like 8 more lines
+// 6. 1pt  new starfield    20 mins, if I don't stop myself I would spend like an hour trying to fix the black hole so ill stop there
+// Total: 20 pts
+// all sources used was found in Phaser/Nathan Documentation 
+
 
 let config = {
     type: Phaser.AUTO,

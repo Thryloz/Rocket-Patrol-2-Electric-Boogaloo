@@ -6,7 +6,7 @@ class Play extends Phaser.Scene{
     create(){
         //(x, y, width, height, key string)
         // added this so we can reference it in the scene
-        this.starfield = this.add.tileSprite(0, 0, 640, 480, 'starfield').setOrigin(0,0);           
+        this.starfield = this.add.tileSprite(0, 0, 640, 480, 'newStarfield').setOrigin(0,0);           
         
         //create green rectangle at with the given parameters.
         //(x, y, width, height, color)
@@ -151,6 +151,7 @@ class Play extends Phaser.Scene{
             this.scene.start('menuScene');
         }
 
+        // speed up after 30s
         if (this.clock.getElapsed() > 30000 && !this.speedup) {
             //console.log("speed up");
             this.speedup = true;
